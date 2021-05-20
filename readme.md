@@ -2,6 +2,8 @@
 
 To have a controller plugged into a remote machine.
 
+![](doc/flow.png)
+
 ## Roles
 
 * `Controller`: I am the remote joystick. 
