@@ -11,16 +11,18 @@ To have a controller plugged into a remote machine.
 
 ## Install
 
+Requires Python3.
+
 ### I am the `Controller`
 
 ```bash
-pip install -e .[controller]
+$ pip install -e .[controller]
 ```
 
 ### I am the `Station`
 
 ```bash
-pip install -e .[station]
+$ pip install -e .[station]
 ```
 
 ## How to use
