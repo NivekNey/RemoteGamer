@@ -2,39 +2,41 @@
 
 To have a controller plugged into a remote machine.
 
+## Roles
+
+* `Remote`: Like TV's remote control, I am have the remote control. 
+* `Station`: I have the game, I am the gaming station.
+
 ## Install
 
-### I capture
+### I am the `Remote`
 
 ```bash
-pip install -e .[capture]
+pip install -e .[remote]
 ```
 
-### I replay
+### I am the `Station`
 
 ```bash
-pip install -e .[replay]
+pip install -e .[station]
 ```
 
 ## How to use
 
-### I capture
+### I am the `Remote`
 
 ```bash
-$ remotegamer Capture
+$ # wait for Station to be up first, CAPTURE_IP is the ip of the Station
+$ remotegamer remote --host=${CAPTURE_IP}
 ```
 
-### I replay
+### I am the `Station`
 
 ```bash
-$ remotegamer Replay --host=${CAPTURE_IP}
+$ remotegamer station
 ```
 
 ## Known bugs
 
 * Xbox button check has false positives sometimes.
 
-## Todo
-
-* Test on actual remote machine
-* Block device event if possible when capture is on
