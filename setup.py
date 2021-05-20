@@ -12,7 +12,7 @@ setup(
     packages=["remotegamer"],
     requires=["zmq"],
     extras_require={
-        "remote": ["inputs"],
+        "controller": ["inputs"],
         "station": ["vgamepad"],
     },
     entry_points={"console_scripts": ["remotegamer=remotegamer.cli:main"]},

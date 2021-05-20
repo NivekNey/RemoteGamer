@@ -1,27 +1,36 @@
+"""Module to convert events to virtual gamepad actions."""
 import vgamepad as vg
 import logging
 
 
 class Converter:
-    """Convert events into vgamepad actions."""
+    """Convert events into vgamepad actions.
+
+    ```python
+    my_converter = Converter()
+    my_converter.convert(ev_type, code, state)
+    ```
+    """
 
     # storing states for continuous codes
     code_state = dict()
 
     def __init__(self) -> None:
-        self.logger = logging.Logger(self.__class__.__name__)
-        self.logger.addHandler(logging.StreamHandler())
+        self.logger = logging.getLogger("remotegamer")
 
     def convert(self, ev_type: str, code: str, state: int):
-        self.logger.info(
+        self.logger.debug(
             f"Converting event ev_type={ev_type} code={code} state={state}"
         )
+
         if ev_type == "Absolute":
             self.abs_event(code, state)
         elif ev_type == "Key":
             self.key_event(code, state)
         else:
             self.logger.warn(f"unknown event type: {ev_type}")
+
+        self.pad.update()
 
     def abs_event(self, code: str, state: int):
         """Smooth/continuous inputs."""
@@ -33,6 +42,8 @@ class Converter:
 
 
 class ToXboxConverter(Converter):
+    """Converter implementation, the virtual gamepad used is Xbox."""
+
     # code string to vg property
     code_to_vg = dict(
         BTN_SOUTH=vg.XUSB_BUTTON.XUSB_GAMEPAD_A,
@@ -58,7 +69,7 @@ class ToXboxConverter(Converter):
     pad = vg.VX360Gamepad()
 
     def is_xbox_button(self, code: str, state: int):
-        """xbox button doesn't have its own code. Instead it's a sequence."""
+        """Xbox button doesn't have its own code. Instead it's a sequence."""
         return (code, state) in [
             # open seq
             ("ABS_X", 0),
@@ -73,6 +84,7 @@ class ToXboxConverter(Converter):
         ]
 
     def abs_event(self, code: str, state: int):
+        """Absolute events."""
         # skip input if xbox button pressed
         if self.is_xbox_button(code, state):
             self.logger.info("xbox_button")
@@ -109,6 +121,7 @@ class ToXboxConverter(Converter):
             self.logger.warn(f"unknown abolute code: {code} with state {state}")
 
     def key_event(self, code: str, state: int):
+        """Button events."""
         button = self.code_to_vg[code]
         if state:  # state == 1
             self.logger.info(f"press_button {code}")

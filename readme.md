@@ -4,15 +4,15 @@ To have a controller plugged into a remote machine.
 
 ## Roles
 
-* `Remote`: Like TV's remote control, I am have the remote control. 
+* `Controller`: I am the remote joystick. 
 * `Station`: I have the game, I am the gaming station.
 
 ## Install
 
-### I am the `Remote`
+### I am the `Controller`
 
 ```bash
-pip install -e .[remote]
+pip install -e .[controller]
 ```
 
 ### I am the `Station`
@@ -23,7 +23,7 @@ pip install -e .[station]
 
 ## How to use
 
-### I am the `Remote`
+### I am the `Controller`
 
 ```bash
 $ # wait for Station to be up first, CAPTURE_IP is the ip of the Station
